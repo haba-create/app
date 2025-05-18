@@ -17,12 +17,7 @@ def create_agent() -> OrderAgent:
     inventory.set_stock("milk", 15, threshold=5)
     return OrderAgent(inventory, openai_api_key=key)
 
-agent: OrderAgent | None = None
-
-@app.before_first_request
-def setup_agent() -> None:
-    global agent
-    agent = create_agent()
+agent: OrderAgent = create_agent()
 
 @app.get("/")
 def index():
