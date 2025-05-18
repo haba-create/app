@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coffee Shop Chatbot</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #chatlog { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; }
+        #user-input { width: 80%; }
+    </style>
+</head>
+<body>
+    <h1>Coffee Shop Chatbot</h1>
+    <div id="chatlog"></div>
+    <input id="user-input" type="text" placeholder="Type your message...">
+    <button id="send-btn">Send</button>
+    <script>
+        const chatlog = document.getElementById('chatlog');
+        const input = document.getElementById('user-input');
+        document.getElementById('send-btn').onclick = async () => {
+            const text = input.value;
+            if (!text) return;
+            chatlog.innerHTML += `<div><strong>You:</strong> ${text}</div>`;
+            input.value = '';
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text })
+            });
+            const data = await response.json();
+            chatlog.innerHTML += `<div><strong>Bot:</strong> ${data.reply}</div>`;
+            chatlog.scrollTop = chatlog.scrollHeight;
+        };
+    </script>
+</body>
+</html>
