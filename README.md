@@ -30,3 +30,18 @@ python run_order_agent.py
 The agent starts a chat session. Type messages such as `set stock of espresso to 5` or `order 2 lattes`. Type `exit` to quit.
 
 If the `openai` package is not installed, the script will run but replies will be placeholders.
+
+## Web Frontend
+
+A basic Flask web server exposes the chatbot through a web page. Install dependencies and run:
+
+```bash
+pip install -r requirements.txt
+python web_server.py
+```
+
+Then open `http://localhost:8080` in your browser.
+
+### Deployment on Railway
+
+Railway will automatically install `requirements.txt` and run the command from the `Procfile`. After pushing this repository to GitHub, create a new Railway project from the repo. The default service will start the web server with `python web_server.py`.
