@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 # Initialize order agent with optional OpenAI key
 def create_agent() -> OrderAgent:
-    key = os.getenv("OPENAI_API_KEY")
+    key = os.getenv("OPENAI_API_KEY") or os.getenv("RAILWAY_OPENAI_KEY")
     inventory = Inventory()
     # Example stock items
     inventory.set_stock("coffee beans", 20, threshold=5)
@@ -44,7 +44,7 @@ def chat():
         {"role": "user", "content": msg},
     ]
 
-    if os.getenv("OPENAI_API_KEY") and agent:
+    if (os.getenv("OPENAI_API_KEY") or os.getenv("RAILWAY_OPENAI_KEY")) and agent:
         try:
             response = agent._openai_chat(messages)
             reply = response["choices"][0]["message"].get("content", "")

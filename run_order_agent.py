@@ -4,7 +4,8 @@ from order_agent import OrderAgent
 
 
 def main() -> None:
-    key = os.getenv("OPENAI_API_KEY")
+    # Prefer the Railway environment variable if available
+    key = os.getenv("OPENAI_API_KEY") or os.getenv("RAILWAY_OPENAI_KEY")
     inv = Inventory()
     agent = OrderAgent(inv, openai_api_key=key)
     # Example initial stock
