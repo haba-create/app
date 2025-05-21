@@ -44,14 +44,11 @@ def chat():
         {"role": "user", "content": msg},
     ]
 
-    if (os.getenv("OPENAI_API_KEY") or os.getenv("RAILWAY_OPENAI_KEY")) and agent:
-        try:
-            response = agent._openai_chat(messages)
-            reply = response["choices"][0]["message"].get("content", "")
-        except Exception as exc:  # pragma: no cover - runtime safety
-            reply = f"Error: {exc}"
-    else:
-        reply = "(OpenAI not configured)"
+    try:
+        response = agent._openai_chat(messages)
+        reply = response["choices"][0]["message"].get("content", "")
+    except Exception as exc:  # pragma: no cover - runtime safety
+        reply = f"Error: {exc}"
     return jsonify({"reply": reply})
 
 

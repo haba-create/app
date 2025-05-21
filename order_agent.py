@@ -65,6 +65,8 @@ class OrderAgent:
         ]
 
     def _openai_chat(self, messages: list[dict[str, str]]) -> dict[str, Any]:
+        if not openai.api_key:
+            return {"choices": [{"message": {"content": "(OpenAI API key not set in agent)"}}]}
         if openai is None:
             raise RuntimeError("openai package is not installed")
         return openai.ChatCompletion.create(
