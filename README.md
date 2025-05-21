@@ -45,3 +45,5 @@ Then open `http://localhost:8080` in your browser.
 ### Deployment on Railway
 
 Railway will automatically install `requirements.txt` and run the command from the `Procfile`. After pushing this repository to GitHub, create a new Railway project from the repo. The default service will start the web server with `python web_server.py`.
+
+Set the `OPENAI_API_KEY` environment variable in your Railway project settings so the application can authenticate with OpenAI. Locally, you can create a `.env` file or export the variable in your shell before running the scripts.
